@@ -1,0 +1,52 @@
+services:
+  # App Laravel (custom image)
+  app:
+    build:
+      args:
+        user: luandoliveira
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    image: caderno_liturgico/laravel-app
+    container_name: laravel-app
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www/
+    restart: always
+    networks:
+      - local-network
+    depends_on:
+      - pgsql
+
+  # NGINX
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/var/www/
+      - ./docker/nginx/:/etc/nginx/conf.d/
+    networks:
+      - local-network
+
+  # PostgreSQL
+  pgsql:
+        image: postgres:16
+        container_name: pgsql
+        restart: always
+        ports:
+            - "5432:5432"
+        volumes:
+            - ./.docker/postgresql:/var/lib/postgresql/data
+        environment:
+            POSTGRES_DB: ${DB_DATABASE}
+            POSTGRES_USER: ${DB_USERNAME}
+            POSTGRES_PASSWORD: ${DB_PASSWORD}
+        networks:
+            - local-network
+
+networks:
+  local-network:
+    driver: bridge
