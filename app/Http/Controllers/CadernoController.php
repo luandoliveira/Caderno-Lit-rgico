@@ -80,13 +80,13 @@ class CadernoController extends Controller
             $query->orderBy('pivot_ordem');
         }]);
 
-        $merger = new Merger(new FpdiDriver());
+        $merger = new Merger(new TcpdiDriver());
 
         // 1. Gera capa + sumário em DomPDF
-        $pdfIntro = \Pdf::loadView('cadernos.pdf_intro', compact('caderno'))->output();
+        $pdfIntro = Pdf::loadView('cadernos.pdf', compact('caderno'))->output();
         $merger->addRaw($pdfIntro);
 
-        // 2. Adiciona as músicas (caso sejam PDFs)
+        // 2. Adiciona os PDFs das músicas
         foreach ($caderno->musicas as $musica) {
             $ext = pathinfo($musica->arquivo, PATHINFO_EXTENSION);
             $path = Storage::disk('public')->path($musica->arquivo);
@@ -100,6 +100,6 @@ class CadernoController extends Controller
         $finalPdf = $merger->merge();
         return response($finalPdf)
             ->header('Content-Type', 'application/pdf')
-            ->header('Content-Disposition', "attachment; filename=Caderno-{$caderno->nome}.pdf");
+            ->header('Content-Disposition', "inline; filename=Caderno-{$caderno->nome}.pdf");
     }
 }

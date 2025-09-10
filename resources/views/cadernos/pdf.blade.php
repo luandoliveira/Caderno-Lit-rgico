@@ -71,7 +71,7 @@
     </div>
 
     {{-- MÚSICAS --}}
-    @foreach($caderno->musicas as $musica)
+    {{-- @foreach($caderno->musicas as $musica)
         <div class="musica">
             <h3>{{ $musica->titulo }}</h3>
             <p class="nota">{{ $musica->tempoLiturgico->nome }} • {{ $musica->parteMissa->nome }}</p>
@@ -88,7 +88,7 @@
                 <p class="nota">Arquivo em PDF anexado: não pode ser renderizado diretamente neste caderno.</p>
             @endif
         </div>
-    @endforeach
+    @endforeach --}}
 
 </body>
 </html>

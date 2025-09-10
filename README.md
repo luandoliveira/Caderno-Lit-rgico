@@ -1,61 +1,91 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📖 Caderno Litúrgico
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+O **Caderno Litúrgico** é uma aplicação web desenvolvida para auxiliar na organização e gestão de informações para celebrações, como leituras e cânticos.  
 
-## About Laravel
+Construído com o framework **Laravel**, o projeto é totalmente containerizado usando **Docker** e **Docker Compose**, garantindo um ambiente de desenvolvimento rápido, consistente e isolado.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## ✨ Funcionalidades Principais
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- 📅 **Calendário Litúrgico**: Visualização de tempos litúrgicos, festas, solenidades e memórias.  
+- 📖 **Gestão de Leituras**: Cadastro e consulta das leituras bíblicas para cada dia (Primeira Leitura, Salmo, Segunda Leitura, Evangelho).  
+- 🎶 **Gerenciador de Cânticos**: Repositório de músicas e cânticos, com cifras e letras, organizados por tempo litúrgico ou tipo de celebração.  
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 🛠️ Tecnologias Utilizadas
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- **Backend**: PHP 8.2+ / Laravel 12.x  
+- **Banco de Dados**: PostgreSQL  
+- **Servidor Web**: Nginx  
+- **Containerização**: Docker & Docker Compose  
+- **Frontend (padrão)**: Blade, Bootstrap e CSS  
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## ⚙️ Pré-requisitos
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Antes de começar, garanta que você tenha as seguintes ferramentas instaladas em seu sistema:
 
-### Premium Partners
+- [Docker](https://docs.docker.com/get-docker/)  
+- [Docker Compose](https://docs.docker.com/compose/)  
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+---
 
-## Contributing
+## 🚀 Instalação e Execução
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 1. Clone o repositório:
 
-## Code of Conduct
+```bash
+git clone https://github.com/luandoliveira/Caderno-Lit-rgico.git
+cd Caderno-Liturgico
+````
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 2. Configure o arquivo de ambiente:
 
-## Security Vulnerabilities
+```bash
+cp .env.example .env
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Certifique-se de que seu arquivo `.env` contenha as seguintes configurações:
 
-## License
+```env
+DB_CONNECTION=pgsql
+DB_HOST=db
+DB_PORT=5432
+DB_DATABASE=caderno_liturgico
+DB_USERNAME=user      # ou o usuário definido no docker-compose.yml
+DB_PASSWORD=password  # ou a senha definida no docker-compose.yml
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 3. Construa e suba os containers Docker:
+
+```bash
+docker compose up -d --build
+```
+
+### 4. Instale as dependências do Composer:
+
+```bash
+docker compose exec app composer install
+```
+
+### 5. Gere a chave da aplicação Laravel:
+
+```bash
+docker compose exec app php artisan key:generate
+```
+
+### 6. Execute as migrações (e seeders, se houver):
+
+```bash
+docker compose exec app php artisan migrate --seed
+```
+
+### 7. Pronto! 🎉
+
+A aplicação estará rodando e acessível em:
+👉 [http://localhost](http://localhost)
+
+
